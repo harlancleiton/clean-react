@@ -27,6 +27,7 @@ module.exports = {
   rules: {
     'prettier/prettier': 'error',
     'no-console': 'warn',
+    '@typescript-eslint/no-explicit-any': 'off',
     'import-helpers/order-imports': [
       'warn',
       {
