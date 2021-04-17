@@ -1,24 +1,29 @@
-import { Authentication, Credentials, User } from '~/auth';
-import { HttpClient } from '~/shared';
+import {
+  Authentication,
+  Credentials,
+  User,
+  InvalidCredentialsError
+} from '~/auth';
+import { HttpClient, UnexpectedError } from '~/shared';
 
 export class HttpAuthenticationService implements Authentication {
   constructor(private readonly httpClient: HttpClient) {}
 
   async execute({ email, password }: Credentials): Promise<User> {
-    try {
-      const payload = { email, password };
+    const payload = { email, password };
 
-      const response = await this.httpClient.request<User>('/auth/login', {
-        method: 'POST',
-        data: payload
-      });
+    const response = await this.httpClient.request<User>('/auth/login', {
+      method: 'POST',
+      data: payload
+    });
 
-      if (response.data) return response.data;
-
-      // TODO add error
-      throw new Error();
-    } catch (error) {
-      throw error;
+    switch (response.status) {
+      case 200:
+        return response.data;
+      case 401:
+        throw new InvalidCredentialsError();
+      default:
+        throw new UnexpectedError();
     }
   }
 }
