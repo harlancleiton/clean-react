@@ -3,8 +3,8 @@ import {
   Credentials,
   User,
   InvalidCredentialsError
-} from '~/auth';
-import { HttpClient, UnexpectedError } from '~/shared';
+} from 'auth';
+import { HttpClient, UnexpectedError } from 'shared';
 
 export class HttpAuthenticationService implements Authentication {
   constructor(private readonly httpClient: HttpClient) {}
@@ -19,6 +19,8 @@ export class HttpAuthenticationService implements Authentication {
 
     switch (response.status) {
       case 200:
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
         return response.data;
       case 401:
         throw new InvalidCredentialsError();

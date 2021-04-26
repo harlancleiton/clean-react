@@ -1,5 +1,14 @@
 import React from 'react';
 
+import { GlobalStyles } from 'shared';
+
+import { SignIn } from './auth';
+
 export const App: React.FC = () => {
-  return <div>App</div>;
+  return (
+    <>
+      <SignIn />
+      <GlobalStyles />
+    </>
+  );
 };

@@ -1,6 +1,5 @@
 import axios, { AxiosInstance, AxiosRequestConfig } from 'axios';
-
-import { HttpClient, HttpRequest, HttpResponse } from '~/shared/data';
+import { HttpClient, HttpRequest, HttpResponse } from 'shared';
 
 export class AxiosHttpClient implements HttpClient {
   private readonly axiosInstance: AxiosInstance;
@@ -13,8 +12,13 @@ export class AxiosHttpClient implements HttpClient {
     url: string,
     config?: HttpRequest
   ): Promise<HttpResponse<T>> {
+    const defaultMethod = 'GET';
     try {
-      const response = await this.axiosInstance.request({ url, ...config });
+      const response = await this.axiosInstance.request({
+        url,
+        method: defaultMethod,
+        ...config
+      });
 
       return response;
     } catch (error) {
