@@ -1,13 +1,11 @@
 import React from 'react';
 
-import { GlobalStyles } from 'shared';
-
-import { SignIn } from './auth';
+import { GlobalStyles, Router } from 'shared';
 
 export const App: React.FC = () => {
   return (
     <>
-      <SignIn />
+      <Router />
       <GlobalStyles />
     </>
   );

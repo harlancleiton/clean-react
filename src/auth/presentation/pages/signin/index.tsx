@@ -1,25 +1,21 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 
-import { Authentication } from 'auth/domain';
 import { Form, Header, Input } from 'shared';
 
 import { Container } from './styles';
+import { SignInProps, SignInFormData } from './types';
 
-interface SignInFormData {
-  email: string;
-  password: string;
-}
+export function SignIn({ authentication }: SignInProps) {
+  const [loading, setLoading] = useState(false);
 
-interface SignInProps {
-  authetication: Authentication;
-}
-
-export function SignIn({ authetication }: SignInProps) {
   const { register, handleSubmit } = useForm<SignInFormData>();
 
   async function onSubmit({ email, password }: SignInFormData) {
-    await authetication.execute({ email, password });
+    setLoading(true);
+
+    console.log('formData: ', { email, password });
+    await authentication.execute({ email, password });
   }
 
   return (
