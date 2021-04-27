@@ -27,7 +27,9 @@ module.exports = {
   rules: {
     'prettier/prettier': 'error',
     'no-console': 'warn',
+    'react/prop-types': 'off',
     '@typescript-eslint/no-explicit-any': 'off',
+    '@typescript-eslint/explicit-module-boundary-types': 'off',
     'import-helpers/order-imports': [
       'warn',
       {
