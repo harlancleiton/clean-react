@@ -1,4 +1,5 @@
 import { Authentication } from 'auth';
+import { SetStorage } from 'shared';
 
 export interface SignInFormData {
   email: string;
@@ -7,4 +8,5 @@ export interface SignInFormData {
 
 export interface SignInProps {
   authentication: Authentication;
+  setStorage: SetStorage;
 }

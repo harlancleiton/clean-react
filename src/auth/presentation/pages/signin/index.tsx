@@ -6,7 +6,7 @@ import { Form, Header, Input } from 'shared';
 import { Container } from './styles';
 import { SignInProps, SignInFormData } from './types';
 
-export function SignIn({ authentication }: SignInProps) {
+export function SignIn({ authentication, setStorage }: SignInProps) {
   const [loading, setLoading] = useState(false);
 
   const { register, handleSubmit } = useForm<SignInFormData>();
@@ -14,8 +14,13 @@ export function SignIn({ authentication }: SignInProps) {
   async function onSubmit({ email, password }: SignInFormData) {
     setLoading(true);
 
-    console.log('formData: ', { email, password });
-    await authentication.execute({ email, password });
+    const { accessToken, refreshToken } = await authentication.execute({
+      email,
+      password
+    });
+
+    await setStorage.set('accessToken', accessToken);
+    await setStorage.set('refreshToken', refreshToken);
   }
 
   return (
@@ -33,6 +38,8 @@ export function SignIn({ authentication }: SignInProps) {
         />
 
         <button type="submit">Login</button>
+
+        {loading && <span>Carregando</span>}
       </Form>
     </Container>
   );
