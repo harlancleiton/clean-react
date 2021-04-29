@@ -1,7 +1,7 @@
 import {
   Authentication,
   Credentials,
-  User,
+  Login,
   InvalidCredentialsError
 } from 'auth';
 import { HttpClient, UnexpectedError } from 'shared';
@@ -9,10 +9,10 @@ import { HttpClient, UnexpectedError } from 'shared';
 export class HttpAuthenticationService implements Authentication {
   constructor(private readonly httpClient: HttpClient) {}
 
-  async execute({ email, password }: Credentials): Promise<User> {
+  async execute({ email, password }: Credentials): Promise<Login> {
     const payload = { email, password };
 
-    const response = await this.httpClient.request<User>('/auth/login', {
+    const response = await this.httpClient.request<Login>('/auth/login', {
       method: 'POST',
       data: payload
     });

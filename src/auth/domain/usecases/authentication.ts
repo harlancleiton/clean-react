@@ -1,5 +1,5 @@
-import { Credentials, User } from '../models';
+import { Credentials, Login } from '../models';
 
 export interface Authentication {
-  execute(credentials: Credentials): Promise<User>;
+  execute(credentials: Credentials): Promise<Login>;
 }
